@@ -13,19 +13,27 @@ body {
     min-height: 100vh;
     background-color: #f4f4f4;
 }
-
-.login-container {
+.container {
     background: #ffffff;
+    display: flex;
+    flex-direction: column;
     padding: 20px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 800px;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-form {
+    text-align: left;
 }
 
 h2 {
     margin-bottom: 20px;
     color: #333;
-    text-align: center;
 }
 
 .form-group {
@@ -68,3 +76,19 @@ input[type="text"]:focus, input[type="password"]:focus {
 .btn:hover {
     background-color: #0056b3;
 }
+
+/* Navbar Styles */
+.logout-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.logout-button:hover {
+    background-color: #e60000;
+}
+

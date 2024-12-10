@@ -1,14 +1,13 @@
 package com.helmes.assignment.controllers;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ContentController {
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
 
     @GetMapping("/login")
     public String login() {
@@ -16,12 +15,19 @@ public class ContentController {
     }
 
     @GetMapping("/admin/home")
-    public String adminHome() {
+    public String adminHome(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("userName", authentication.getName());
         return "admin/home";
     }
 
     @GetMapping("/user/home")
-    public String userHome() {
+    public String userHome(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("userName", authentication.getName());
+
         return "user/home";
     }
 

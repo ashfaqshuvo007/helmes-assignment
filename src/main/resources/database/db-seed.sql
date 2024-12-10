@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS helmes;
 -- Create table 'users'
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     role VARCHAR(16) NOT NULL DEFAULT 'USER'
 );
@@ -28,10 +28,10 @@ CREATE TABLE user_sectors (
 -- POPULATE THE DATABASE
 
 -- Users table
-INSERT INTO users(id, name, password, role) VALUES
-(1, 'John', '$2a$12$t5zUFCfw/duPJVaaCxbV8.m1nPRX/kA.2QEvJZm.2uu5n8kKFeHeW', 'ADMIN'),
-(2, 'Jane', '$2a$12$t5zUFCfw/duPJVaaCxbV8.m1nPRX/kA.2QEvJZm.2uu5n8kKFeHeW', 'USER'),
-(3, 'Mika', '$2a$12$t5zUFCfw/duPJVaaCxbV8.m1nPRX/kA.2QEvJZm.2uu5n8kKFeHeW', 'USER');
+INSERT INTO users(id, username, password, role) VALUES
+(1, 'John', '$2a$12$t5zUFCfw/duPJVaaCxbV8.m1nPRX/kA.2QEvJZm.2uu5n8kKFeHeW', 'ROLE_ADMIN'),
+(2, 'Jane', '$2a$12$t5zUFCfw/duPJVaaCxbV8.m1nPRX/kA.2QEvJZm.2uu5n8kKFeHeW', 'ROLE_USER'),
+(3, 'Mika', '$2a$12$t5zUFCfw/duPJVaaCxbV8.m1nPRX/kA.2QEvJZm.2uu5n8kKFeHeW', 'ROLE_USER');
 -- Sectors Table (Starting with base sectors)
 INSERT INTO sectors(id, sector_name, parent_id) VALUES
 (1, 'Manufacturing', NULL),

@@ -12,8 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import static org.springframework.security.authorization.AuthorityAuthorizationManager.hasRole;
-
 @Configuration
 public class SecurityConfiguration {
 
@@ -29,11 +27,11 @@ public class SecurityConfiguration {
 
         return http.authorizeHttpRequests(
             authorize-> {
-                authorize.requestMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/login").permitAll();
+                authorize.requestMatchers("/css/**", "/js/**", "/images/**", "/fonts/**" ).permitAll();
                 authorize.requestMatchers("/login","/logout","/error/**").permitAll();
                 // Restrict access to admin and user pages based on roles
-                authorize.requestMatchers("/","/home").access(hasRole("USER"));
-                authorize.requestMatchers("/admin/**").access(hasRole("ADMIN"));
+                authorize.requestMatchers("/admin/**").hasRole("ADMIN");
+                authorize.requestMatchers("/user/**").hasRole("USER");
                 authorize.anyRequest().authenticated();
             }
         ).formLogin(login -> login.loginPage("/login").successHandler(customAuthenticationSuccessHandler()).permitAll())
@@ -45,7 +43,7 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(myUserDetailService);
+        daoAuthenticationProvider.setUserDetailsService(userDetailService());
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return daoAuthenticationProvider;

@@ -1,5 +1,9 @@
 package com.helmes.assignment.enums;
 
 public enum Role {
-    ADMIN, USER
+    ADMIN, USER;
+
+    public String getAuthority() {
+        return "ROLE_" + this.name();
+    }
 }

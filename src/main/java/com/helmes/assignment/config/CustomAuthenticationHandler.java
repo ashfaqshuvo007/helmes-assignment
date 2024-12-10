@@ -1,7 +1,8 @@
 package com.helmes.assignment.config;
 
 
-import jakarta.servlet.ServletException;
+import com.helmes.assignment.entity.models.MyUserDetails;
+import com.helmes.assignment.enums.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
@@ -15,16 +16,20 @@ public class CustomAuthenticationHandler implements AuthenticationSuccessHandler
     public void onAuthenticationSuccess(
         HttpServletRequest request,
         HttpServletResponse response,
-        Authentication authentication) throws IOException, ServletException {
+        Authentication authentication) throws IOException {
+        String redirectUrl = determineTargetUrl(authentication);
 
-        String redirectUrl = request.getContextPath();
-
-        if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-            redirectUrl = "/admin/home";
-        } else if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))) {
-            redirectUrl = "/user/home";
-        }
         response.sendRedirect(redirectUrl);
+    }
 
+    private String determineTargetUrl(Authentication authentication) {
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        Role role = userDetails.getRole();
+
+        if (role == Role.ADMIN) {
+            return "/admin/home";
+        } else {
+            return "/user/home";
+        }
     }
 }

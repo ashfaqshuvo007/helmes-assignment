@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,15 +19,19 @@
     </div>
     <div class="login-container">
 
-        <form th:action="@{/login}" method="post" class="login-form">
+        <form th:action="@{/sectors}" method="post" class="login-form">
             <h2 class="form-header">Add Sectors</h2>
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter username" th:value="${userName}" required>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter name" th:value="${userName}" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter password" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="checkbox" id="terms-conditions" name="password" placeholder="Enter password" required>
             </div>
             <button type="submit" class="btn">Login</button>
         </form>

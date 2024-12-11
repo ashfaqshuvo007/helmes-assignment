@@ -1,0 +1,13 @@
+
+<div th:fragment="header-admin" class="header">
+    <div class="heading">
+        <h2>Welcome! <span th:text="${userName}"></span></h2>
+        <ul>
+            <li><a th:href="@{/users/new}" class="add-btn">Add Users</a></li>
+            <li><a th:href="@{/sectors/new}" class="add-btn">Add Sectors</a></li>
+        </ul>
+    </div>
+    <div class="logout-btn">
+        <a th:href="@{/logout}" class="logout-button">Logout</a>
+    </div>
+</div>

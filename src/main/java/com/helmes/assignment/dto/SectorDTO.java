@@ -11,6 +11,8 @@ public class SectorDTO {
         this.parentName = parentName;
     }
 
+    public SectorDTO() {}
+
     public Long getId() {
         return id;
     }

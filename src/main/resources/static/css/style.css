@@ -86,7 +86,7 @@ input[type="text"], input[type="password"] {
 
 input[type="text"]:focus, input[type="password"]:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #009879;
 }
 
 select{
@@ -101,7 +101,7 @@ select{
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #009879;
     border: none;
     border-radius: 4px;
     color: white;
@@ -195,5 +195,81 @@ tbody tr:hover {
 .table-action-row {
     display: flex;
 }
+small {
+    color: #ff4d4d;
+}
 
+.alert {
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.alert-text {
+    flex-grow: 1;
+    margin-right: 15px;
+}
+
+.alert-close {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.form-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-save-btn {
+    display: block;
+    padding: 10px;
+    background-color: #009879;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.form-save-btn:hover {
+    background-color: #0056b3;
+}

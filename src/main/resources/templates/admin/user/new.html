@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Add User</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div class="container">
+  <div th:replace="~{fragments/header-admin}"></div>
+  <div class="login-container">
+    <div th:if="${alertMessage}" class="alert"
+         th:classappend="'alert-' + ${alertType}">
+      <span class="alert-text" th:text="${alertMessage}"></span>
+      <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
+    </div>
+
+    <form method="POST" th:action="@{/users}" th:object="${user}" class="login-form">
+      <h2 class="form-header">Add User</h2>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" th:field="*{username}" placeholder="Enter user name" required>
+      </div>
+      <div class="form-group">
+        <label for="role">Role: &nbsp; <span><small>*&nbsp;Default role is 'USER'</small></span></label>
+        <select id="role" th:field="*{role}">
+          <option th:each="role : ${roles}"
+                  th:value="${role}"
+                  th:text="${role}"
+                  th:selected="${role} == *{role}">
+          </option>
+        </select>
+      </div>
+      <div class="form-footer">
+        <a th:href="@{/admin/home}" class="logout-button">Back to home</a>
+        <button type="submit" class="form-save-btn">Save</button>
+
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

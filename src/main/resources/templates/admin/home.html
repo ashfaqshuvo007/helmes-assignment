@@ -9,34 +9,56 @@
 
 <body>
 <div class="container">
-    <div class="header">
-        <div class="heading">
-            <h2>Welcome! admin. <span th:text="${userName}"></span></h2>
-        </div>
-        <div class="logout-btn">
-            <a th:href="@{/logout}" class="logout-button">Logout</a>
-        </div>
+    <div th:replace="~{fragments/header-admin}"></div>
+    <div th:if="${alertMessage}" class="alert"
+         th:classappend="'alert-' + ${alertType}">
+        <span class="alert-text" th:text="${alertMessage}"></span>
+        <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
     </div>
-    <div class="login-container">
-
-<!--        <form th:action="@{/sectors}" method="post" class="login-form">-->
-<!--            <h2 class="form-header">Add Sectors</h2>-->
-<!--            <div class="form-group">-->
-<!--                <label for="name">Name</label>-->
-<!--                <input type="text" id="name" name="name" placeholder="Enter name" th:value="${userName}" required>-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="password">Password</label>-->
-<!--                <input type="password" id="password" name="password" placeholder="Enter password" required>-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="password">Password</label>-->
-<!--                <input type="checkbox" id="terms-conditions" name="password" placeholder="Enter password" required>-->
-<!--            </div>-->
-<!--            <button type="submit" class="btn">Login</button>-->
-<!--        </form>-->
+    <div class="users-list">
+        <h3>Users</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td class="table-action-row">
+                        <a th:href="@{/users/{id}/edit(id=${user.id})}">Edit</a>
+                        <a th:href="@{/users/{id}/delete(id=${user.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <h3>Sectors</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parent</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sector : ${sectors}">
+                <td th:text="${sector.sectorName}"></td>
+                <td th:text="${sector.parentName != null ? sector.parentName : 'NO' }"></td>
+                <td class="table-action-row">
+                    <a th:href="@{/sectors/{id}/edit(id=${sector.id})}">Edit</a>
+                    <a th:href="@{/sectors/{id}/delete(id=${sector.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-
 </body>
 </html>

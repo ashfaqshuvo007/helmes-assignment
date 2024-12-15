@@ -27,7 +27,7 @@ public class SecurityConfiguration {
 
         return http.authorizeHttpRequests(
             authorize-> {
-                authorize.requestMatchers("/static/css/**", "/static/js/**", "/images/**", "/fonts/**" ).permitAll();
+                authorize.requestMatchers("/css/**", "/js/**", "/images/**", "/fonts/**" ).permitAll();
                 authorize.requestMatchers("/login","/logout","/error/**").permitAll();
                 // Restrict access to admin and user pages based on roles
                 authorize.requestMatchers("/admin/**").hasRole("ADMIN");

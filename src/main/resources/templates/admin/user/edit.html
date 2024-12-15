@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Add sector</title>
+  <title>Admin - Edit User</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
@@ -17,32 +17,32 @@
       <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
     </div>
 
-    <form method="POST" th:action="@{/sectors}" th:object="${sectorDTO}" class="login-form">
-      <h2 class="form-header">Add Sectors</h2>
+    <form method="POST" th:action="@{/admin/user/update}" th:object="${user}" class="login-form">
+      <input type="hidden" th:field="*{id}" />
       <div class="form-group">
-        <label for="sector_name">Sector Name</label>
-        <input type="text" id="sector_name" name="sector_name" th:field="*{sectorName}" placeholder="Enter sector name" required>
+        <label for="username">Name</label>
+        <input type="text" id="username" th:field="*{username}" placeholder="Enter user name" required />
       </div>
+
       <div class="form-group">
-
-        <label>Select Parent &nbsp; <span><small>*&nbsp;Do not select if it does not have a parent.</small></span></label>
-        <label>
-          <select name="parent" th:field="*{parentName}">
-            <option value="">Select Parent</option>
-            <option th:each="sector : ${sectors}"
-                    th:value="${sector.sectorName}"
-                    th:text="${sector.sectorName}">
-            </option>
-
-          </select>
-        </label>
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}" placeholder="Enter password" required />
       </div>
+
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" th:field="*{role}">
+          <option th:each="role : ${roles}" th:value="${role}" th:text="${role}" th:selected="${role} == *{role}"></option>
+        </select>
+      </div>
+
       <div class="form-footer">
         <a th:href="@{/admin/home}" class="logout-button">Back to home</a>
         <button type="submit" class="form-save-btn">Save</button>
-
       </div>
     </form>
+
+
   </div>
 </div>
 </body>

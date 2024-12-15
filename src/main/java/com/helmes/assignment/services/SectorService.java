@@ -3,15 +3,12 @@ package com.helmes.assignment.services;
 import com.helmes.assignment.dto.SectorDTO;
 import com.helmes.assignment.entity.models.Sector;
 import com.helmes.assignment.entity.repositories.SectorRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class SectorService {
-    private static final Logger log = LoggerFactory.getLogger(SectorService.class);
     private final SectorRepository sectorRepository;
 
     public SectorService(SectorRepository sectorRepository) {
@@ -34,15 +31,33 @@ public class SectorService {
             parent = sectorRepository.findAll().stream()
                 .filter(sector -> sector.getSectorName().equals(sectorDTO.getParentName()))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Sector not found"));
+                .orElseThrow(() -> new RuntimeException("Parent Sector not found"));
         }
         Sector sector = new Sector(sectorDTO.getId(),sectorDTO.getSectorName(), parent);
         convertToDTO(sectorRepository.save(sector));
     }
 
+    public void updateSector(SectorDTO sectorDTO) {
+        Sector sector = sectorRepository
+            .findById(sectorDTO.getId()).orElseThrow(() -> new RuntimeException("Sector not found"));
+
+        sector.setSectorName(sectorDTO.getSectorName());
+        if (sectorDTO.getParentName() != null && !sectorDTO.getParentName().isEmpty()) {
+            Sector parent = sectorRepository.findAll().stream()
+                .filter(sec -> sec.getSectorName().equals(sectorDTO.getParentName()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Parent Sector not found"));
+
+            sector.setParent(parent);
+        } else {
+            sector.setParent(null);
+        }
+        sectorRepository.save(sector);
+    }
+
     public void deleteSectorById(Long id) {
         if (!sectorRepository.existsById(id)) {
-            throw new RuntimeException("Category not found");
+            throw new RuntimeException("Sector not found");
         }
 
         sectorRepository.deleteById(id);

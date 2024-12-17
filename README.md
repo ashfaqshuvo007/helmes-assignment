@@ -28,17 +28,18 @@ A home task assigned to showcase skills for the job application for "Java Backen
 ## Solution Description:
 
 ---
+The solution was dockerized with admin panel and a client facing side. The full solution is dockerized. Two services app and mysqldb. Database dump is provided as well as there is seed file inside resources folder. 
+- Admin User:
+  - username: John
+  - password: 123456
 
-The solution steps and the details are given in separate files. The choice of technologies
-step are also included:
+- User
+  - username: Jane
+  - password: 123456
 
-- [Initial Setup](docs/Project-Setup.md)
-- [Database](docs/db-setup.md)
-- [Application](docs/logic-crud.md)
-- [Tests](docs/tests.md)
 
 ## Comments:
 
 ---
+I think I spent too much time on the admin side. The task was pretty simple. I wanted to showcase my skill more elaborately. I could not make enough time at the end. Would have liked to put some finishing touches.
 
-**Generic comments will be added here**

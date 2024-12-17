@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User - Add Sectors</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+<div class="container">
+  <div th:replace="~{fragments/header}"></div>
+  <div class="login-container">
+    <div th:if="${alertMessage}" class="alert"
+         th:classappend="'alert-' + ${alertType}">
+      <span class="alert-text" th:text="${alertMessage}"></span>
+      <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
+    </div>
+    <form th:action="@{/user/sectors/add}" th:object="${user}" method="POST" class="login-form">
+      <h2 class="form-header">Assign Sectors</h2>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" th:field="*{username}" th:value="*{username}" placeholder="Enter user name" required>
+      </div>
+      <div class="form-group">
+        <label for="sectors">Sectors:</label>
+        <select id="sectors" multiple="multiple" th:field="*{sectors}">
+          <th:block th:each="entry: ${sectorsHierarchy}">
+            <option th:value="${entry.key.id}" th:text="${entry.key.sectorName}"></option>
+            <optgroup th:label="${entry.key.sectorName}">
+              <th:block th:each="child : ${entry.value}">
+                <option th:value="${child.id}" th:text="'-- ' + ${child.sectorName}"></option>
+              </th:block>
+            </optgroup>
+          </th:block>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="userTermsAndConditions" th:field="*{userTermsAndConditions}" th:value="*{userTermsAndConditions}" required>
+        <label for="userTermsAndConditions"> &nbsp; Agree to Terms and conditions.</label>
+      </div>
+      <div class="form-footer">
+        <a th:href="@{/user/home}" class="logout-button">Back to home</a>
+        <button type="submit" class="form-save-btn">Save</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#sectors').select2();
+  });
+</script>
+</body>
+
+</html>

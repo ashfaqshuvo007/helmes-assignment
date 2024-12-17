@@ -1,9 +1,14 @@
 package com.helmes.assignment.services;
 
 import com.helmes.assignment.entity.models.MyUser;
+import com.helmes.assignment.entity.models.Sector;
 import com.helmes.assignment.entity.repositories.MyUserRepository;
+import com.helmes.assignment.enums.TermsAndConditionsAgreement;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -17,6 +22,10 @@ public class UserService {
 
     public MyUser loadUserById(Long id) {
         return myUserRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+    }
+
+    public MyUser loadUserByUsername(String username) {
+        return myUserRepository.findMyUserByUsername(username);
     }
 
     public void createUser(MyUser myUser) {
@@ -33,6 +42,14 @@ public class UserService {
             myUser.getPassword() != null ? myUser.getPassword() : "123456"));
         user.setUsername(myUser.getUsername());
         user.setRole(myUser.getRole());
+        myUserRepository.save(user);
+    }
+
+    public void addSectors(String username, List<Sector> sectors, String userTermsAndConditions) {
+        MyUser user = this.loadUserByUsername(username);
+        user.setSectors(sectors);
+        user.setUserTermsAndConditions(TermsAndConditionsAgreement.valueOf(
+            Objects.equals(userTermsAndConditions, "true") ? "AGREE" : "DISAGREE"));
         myUserRepository.save(user);
     }
 

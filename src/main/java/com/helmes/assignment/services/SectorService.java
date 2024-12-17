@@ -5,7 +5,10 @@ import com.helmes.assignment.entity.models.Sector;
 import com.helmes.assignment.entity.repositories.SectorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SectorService {
@@ -20,6 +23,26 @@ public class SectorService {
             .map(this::convertToDTO)
             .toList();
     }
+
+    public Map<SectorDTO, List<SectorDTO>> getAllSectorsOrderedByParent() {
+        List<SectorDTO> sectorDTOS = this.getAllSectors();
+        Map<SectorDTO, List<SectorDTO>> sectorsHierarchy = new LinkedHashMap<>();
+
+        for (SectorDTO sectorDTO : sectorDTOS) {
+            if (sectorDTO.getParentName() == null) {
+                sectorsHierarchy.put(sectorDTO,  new ArrayList<>());
+            } else {
+                for (Map.Entry<SectorDTO, List<SectorDTO>> entry : sectorsHierarchy.entrySet()) {
+                    if (entry.getKey().getSectorName().equals(sectorDTO.getParentName())) {
+                        entry.getValue().add(sectorDTO);
+                        break;
+                    }
+                }
+            }
+        }
+        return sectorsHierarchy;
+    }
+
     public SectorDTO getSectorById(Long id) {
         return sectorRepository.findById(id).map(this::convertToDTO).orElseThrow(() -> new RuntimeException("Sector not found"));
     }

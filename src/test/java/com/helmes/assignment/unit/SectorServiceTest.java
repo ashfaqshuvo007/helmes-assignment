@@ -161,5 +161,4 @@ class SectorServiceTest {
         });
         assertEquals("Sector not found", exception.getMessage());
     }
-
 }

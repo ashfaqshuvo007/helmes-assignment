@@ -2,6 +2,7 @@ package com.helmes.assignment.integration;
 
 import com.helmes.assignment.controllers.UserController;
 import com.helmes.assignment.entity.models.MyUser;
+import com.helmes.assignment.services.SectorService;
 import com.helmes.assignment.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

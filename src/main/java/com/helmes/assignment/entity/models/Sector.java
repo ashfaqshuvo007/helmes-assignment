@@ -7,8 +7,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import java.util.List;
 
 @Entity
 @Table(name = "sectors")
@@ -23,6 +26,9 @@ public class Sector {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Sector parent;
+
+    @ManyToMany(mappedBy = "sectors")
+    private List<MyUser> users;
 
     public Sector(Long id, String sectorName, Sector parent) {
         this.id = id;
@@ -56,5 +62,11 @@ public class Sector {
         this.parent = parent;
     }
 
+    public List<MyUser> getUsers() {
+        return users;
+    }
 
+    public void setUsers(List<MyUser> users) {
+        this.users = users;
+    }
 }

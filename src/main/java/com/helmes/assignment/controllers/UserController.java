@@ -18,7 +18,6 @@ public class UserController {
     private static final String ALERT_SUCCESS = "success";
     private static final String ALERT_ERROR = "error";
     private static final String USER = "user";
-    private static final String USERS = "users";
     private static final String ROLES = "roles";
     private final UserService userService;
 
